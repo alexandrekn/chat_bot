@@ -30,7 +30,9 @@ client.on('message', async msg => {
         await delay(3000);
         await chat.sendStateTyping();
         await delay(3000);
-        await client.sendMessage(msg.from, `Claro,  ${name}! Estou te mandando o link com todos os nossos imóveis disponíveis para locação: http://www.cegnegociosimobiliarios.imb.br/imovel/locacao`);
+        const contact = await msg.getContact();
+        const name = contact.pushname.split(" ")[0];
+        await client.sendMessage(msg.from,  `Claro, ${name}! Estou te mandando o link com todos os nossos imóveis disponíveis para locação: http://www.cegnegociosimobiliarios.imb.br/imovel/locacao`);
     }
 
     if (msg.body === '2' && msg.from.endsWith('@c.us')) {
@@ -38,7 +40,9 @@ client.on('message', async msg => {
         await delay(3000);
         await chat.sendStateTyping();
         await delay(3000);
-        await client.sendMessage(msg.from, `Claro,  ${name}! Estou te mandando o link com todos os imóveis disponíveis para venda: http://www.cegnegociosimobiliarios.imb.br/imovel/venda`);
+        const contact = await msg.getContact();
+        const name = contact.pushname.split(" ")[0];
+        await client.sendMessage(msg.from, `Claro ${name}! Estou te mandando o link com todos os imóveis disponíveis para venda: http://www.cegnegociosimobiliarios.imb.br/imovel/venda`);
     }
 
     if (msg.body === '3' && msg.from.endsWith('@c.us')) {
@@ -46,7 +50,9 @@ client.on('message', async msg => {
         await delay(3000);
         await chat.sendStateTyping();
         await delay(3000);
-        await client.sendMessage(msg.from, `Claro,  ${name}! Assim que um de nossos especialistas estiver disponível, ele entrará em contato o mais rápido possível.`);
+        const contact = await msg.getContact();
+        const name = contact.pushname.split(" ")[0];
+        await client.sendMessage(msg.from, `Claro, ${name}! Assim que um de nossos especialistas estiver disponível, ele entrará em contato o mais rápido possível.`);
     }
 
     if (msg.body === '4' && msg.from.endsWith('@c.us')) {
@@ -57,3 +63,15 @@ client.on('message', async msg => {
         await client.sendMessage(msg.from, `A *C&G Negócios Imobiliários* agradece seu contato! Se precisar de algo mais, estaremos sempre à disposição. Tenha um ótimo dia!`);
     }
 });
+
+const puppeteer = require('puppeteer-core');
+
+(async () => {
+  const browser = await puppeteer.launch({
+    executablePath: '/usr/bin/chromium-browser', // Caminho do Chromium
+    headless: true, // Garantir que será em modo sem interface gráfica
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
+
+  // Seu código para interagir com o navegador
+})();
